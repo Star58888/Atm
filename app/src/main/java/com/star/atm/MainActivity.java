@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -23,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        GridView grid = findViewById(R.id.grid);
+        ArrayAdapter gAdapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1 ,func);
+        grid.setAdapter(gAdapter);
+
+
         final Spinner notify = findViewById(R.id.spinner);
         final ArrayAdapter<CharSequence> nAdapter = ArrayAdapter.createFromResource(
                 this, R.array.notify_array , android.R.layout.simple_spinner_item);
