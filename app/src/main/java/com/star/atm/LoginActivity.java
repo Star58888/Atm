@@ -14,14 +14,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        EditText edUserid = (EditText) findViewById(R.id.userid);
+        EditText edUserid =  findViewById(R.id.userid);
         SharedPreferences setting = getSharedPreferences("atm" , MODE_PRIVATE);
         edUserid.setText(setting.getString("PREF_USERID",""));
     }
 
     public void login(View view) {
-        EditText edUserid = (EditText)findViewById(R.id.userid);
-        EditText edPasswd = (EditText)findViewById(R.id.passwd);
+        EditText edUserid = findViewById(R.id.userid);
+        EditText edPasswd = findViewById(R.id.passwd);
         String uid = edUserid.getText().toString();
         String pw = edPasswd.getText().toString();
         if (uid.equals("jack") && pw.equals("1234")) {
@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
             setting.edit().putString("PREF_USERID", uid).commit();
             Toast.makeText(this , " 登入成功" ,Toast.LENGTH_SHORT).show();
             getIntent().putExtra("LOGIN_USERID" , uid);
-            getIntent().putExtra("LOGIN_PASSWORD" , pw);
+            getIntent().putExtra("LOGIN_PASSWD" , pw);
             setResult(RESULT_OK , getIntent());
             finish();
         }
