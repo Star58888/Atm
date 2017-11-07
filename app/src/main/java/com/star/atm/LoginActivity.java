@@ -10,6 +10,15 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        EditText edUserid = (EditText) findViewById(R.id.userid);
+        SharedPreferences setting = getSharedPreferences("atm" , MODE_PRIVATE);
+        edUserid.setText(setting.getString("PREF_USERID",""));
+    }
+
     public void login(View view) {
         EditText edUserid = (EditText)findViewById(R.id.userid);
         EditText edPasswd = (EditText)findViewById(R.id.passwd);
@@ -32,14 +41,5 @@ public class LoginActivity extends AppCompatActivity {
 
     public void cancel(View view) {
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        EditText edUserid = (EditText) findViewById(R.id.userid);
-        SharedPreferences setting = getSharedPreferences("atm" , MODE_PRIVATE);
-        edUserid.setText(setting.getString("PREF_USERID",""));
     }
 }

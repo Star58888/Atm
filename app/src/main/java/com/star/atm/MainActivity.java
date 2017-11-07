@@ -13,19 +13,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int FUNC_LOGON = 1;  // 登入功能
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RESULT_OK) {
-            String uid = data.getStringExtra("LOGIN_USERID");
-            String pw = data.getStringExtra("LOGIN_PASSWORD");
-            Log.d("RESULT" , uid + "/" + pw);
-        } else {
-            finish();
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -36,6 +23,21 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == FUNC_LOGON) {
+            if(requestCode == RESULT_OK) {
+                String uid = data.getStringExtra("LOGIN_USERID");
+                String pw = data.getStringExtra("LOGIN_PASSWORD");
+                Log.d("RESULT" , uid + "/" + pw);
+            } else {
+                    finish();
+            }
+        }
     }
 
     @Override
