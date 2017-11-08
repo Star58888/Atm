@@ -14,12 +14,13 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     boolean logon = false;
     public static final int FUNC_LOGON = 1;  // 登入功能
     String[] func = {"餘額查詢" ,"交易明細" , "最新消息" , "投資理財" , "離開"};
     ListView list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         GridView grid = findViewById(R.id.grid);
         ArrayAdapter gAdapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1 ,func);
         grid.setAdapter(gAdapter);
-
+        grid.setOnItemClickListener(this);
 
         final Spinner notify = findViewById(R.id.spinner);
         final ArrayAdapter<CharSequence> nAdapter = ArrayAdapter.createFromResource(
@@ -92,5 +93,23 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (position)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                finish();
+                break;
+        }
     }
 }
