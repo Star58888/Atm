@@ -7,11 +7,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -20,6 +24,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public static final int FUNC_LOGON = 1;  // 登入功能
     String[] func = {"餘額查詢" ,"交易明細" , "最新消息" , "投資理財" , "離開"};
     ListView list;
+    int[] icons = {R.drawable.func_balance,
+            R.drawable.func_history,
+            R.drawable.func_new,
+            R.drawable.func_finance,
+            R.drawable.func_exit,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +37,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         GridView grid = findViewById(R.id.grid);
-        ArrayAdapter gAdapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1 ,func);
+        //更新使用自訂layout
+        IconAdapter gAdapter = new IconAdapter();
+
+//        ArrayAdapter gAdapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1 ,func);
         grid.setAdapter(gAdapter);
         grid.setOnItemClickListener(this);
 
         final Spinner notify = findViewById(R.id.spinner);
         final ArrayAdapter<CharSequence> nAdapter = ArrayAdapter.createFromResource(
                 this, R.array.notify_array , android.R.layout.simple_spinner_item);
-        notify.setAdapter(nAdapter);
-
-        list = findViewById(R.id.list);
-        ArrayAdapter adapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1 , func);
-        list.setAdapter(adapter);
+//        notify.setAdapter(nAdapter);
         nAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         notify.setAdapter(nAdapter);
 
@@ -54,7 +63,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             }
         });
-
+        list = findViewById(R.id.list);
+        ArrayAdapter adapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1 , func);
+        list.setAdapter(adapter);
         if (!logon) {
             Intent intent = new Intent(this , LoginActivity.class);
 //
@@ -99,17 +110,49 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position)
         {
-            case 0:
+            case R.drawable.func_balance:
                 break;
-            case 1:
+            case R.drawable.func_new:
                 break;
-            case 2:
+            case R.drawable.func_finance:
                 break;
-            case 3:
+            case R.drawable.func_history:
                 break;
-            case 4:
+            case R.drawable.func_exit:
                 finish();
                 break;
+        }
+    }
+
+    class IconAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return func.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return func[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return icons[position];
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View row = convertView;
+            if(row == null)
+            {
+                row = getLayoutInflater().inflate(R.layout.item_row , null);
+                ImageView image = row.findViewById(R.id.item_image);
+                TextView text = row.findViewById(R.id.item_text);
+                image.setImageResource(icons[position]);
+                text.setText(func[position]);
+            }
+            return row;
         }
     }
 }
