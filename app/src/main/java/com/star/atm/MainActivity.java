@@ -110,15 +110,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position)
         {
-            case R.drawable.func_balance:
+            case 0:
+//                R.drawable.func_balance:
                 break;
-            case R.drawable.func_new:
+            case 1:
+//                R.drawable.func_new:
                 break;
-            case R.drawable.func_finance:
+            case 2:
+//                R.drawable.func_finance:
                 break;
-            case R.drawable.func_history:
+            case 3:
+//                R.drawable.func_history:
+                startActivity(new Intent(this, FinanceActivity.class));
                 break;
-            case R.drawable.func_exit:
+            case 4:
+//                R.drawable.func_exit:
                 finish();
                 break;
         }
