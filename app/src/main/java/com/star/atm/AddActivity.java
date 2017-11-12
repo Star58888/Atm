@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddActivity extends AppCompatActivity {
     private EditText edDate , edInfo , edAmount;
@@ -14,7 +15,8 @@ public class AddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-        helper = new MyDBHelper(this , "expense.db" , null , 1);
+//        helper = new MyDBHelper(this , "expense.db" , null , 1);
+        helper = MyDBHelper.getInstance(this);
         findViews();
     }
 
@@ -33,7 +35,7 @@ public class AddActivity extends AppCompatActivity {
         values.put("info" , info);
         values.put("amount" , amount);
         long id = helper.getWritableDatabase().insert("exp" , null , values);
-
+        Toast.makeText(AddActivity.this ,"您新增了項目: " + info ,Toast.LENGTH_SHORT).show();
         Log.d("ADD" , id + "");
     }
 }
